@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clad"
+version = "0.1.0"
+description = "tmux + Claude Code channels CLI — persistent tagged worker sessions"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "clad" }]
+dependencies = [
+    "click>=8.1",
+    "requests>=2.31",
+    "sseclient-py>=1.8",
+    "rich>=13",
+    "pyyaml>=6",
+    "aiohttp>=3.9",
+    "mcp>=1.0.0",
+    "httpx>=0.25",
+]
+
+[project.scripts]
+clad = "clad.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-asyncio>=0.23",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "smoke: integration smoke tests that spawn a real Claude (skipped in CI)",
+]
+asyncio_mode = "auto"
